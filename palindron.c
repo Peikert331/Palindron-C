@@ -8,7 +8,7 @@ int CzyPalindron(char* slowo) /*Funkcja zwracająca wartości 1 i 0, char* oznac
     int polowa = (dlugosc + 1) / 2; /*Jeśli liczba parzysta, dzieli na poł, jeśli liczba nieparzysta, dzielenie przez 2 zaokrąglone jest w górę*/
     for(int i = 0; i < polowa; i++) /*Pętla iteruje po znakach od początku wyrazu do połowy*/
     {
-        if(slowo[i] != slowo[dlugosc - 1 - i]) /*Instrukcja warunkowa sprawdza, czy pierwsze i ostatnie litery są takie same*/
+        if(isalnum(tolower(slowo[i])) != isalnum(tolower(slowo[dlugosc - 1 - i]))) /*Instrukcja warunkowa sprawdza, czy pierwsze i ostatnie litery są takie same, tolower zmniejsza duże litery */
         {
             return 0; /*Funkcja zwraca 0, gdy tekst nie jest palindronem*/
         }
@@ -19,7 +19,8 @@ void main() /*Funkcja bez zwracanej wartości*/
 { 
     printf("Podaj tekst, aby sprawdzic, czy jest on palindronem\n"); /*Printf wyświetla tekst na ekranie, \n przenosi do nowej linii*/
     char tekst[MAX]; /*Deklaracja tablicy znaków, która może przechowywać maksymalnie 1000 znaków*/
-    scanf_s("%s", tekst, 1000); /*Za pomocą scanf_s odczytujemy dane, %s, ponieważ oczekujemy ciągu znaków, &tekst przekazuje adres do zmiennej tekst */
+    fgets(tekst, MAX, stdin); /*Za pomocą fgets odczytujemy dane, scanf_s kończy wczytywanie na 1 spacji, podajemy tablicę znaków, rozmiar tablicy i strumień wejściowy, stdin to dane wpisywane z klawiatury */
+    tekst[strcspn(tekst, "\n")] = '\0'; /*Funkcja fgets dodaje na końcu znak nowej linii, funkcja strcspn zwraca indeks pierwszego wystąpienia znaku nowej linii, który zamieniamy na znak końca ciągu znaków*/
     if(CzyPalindron(tekst) == 1) /*Instrukcja warunkowa, która sprawdza czy funkcja zwróciła wartość 1*/
     {
         printf("%s jest palindronem\n", tekst); /*Wyświetla informację, w "" wpisujemy %s, po przecinku zmienną*/
